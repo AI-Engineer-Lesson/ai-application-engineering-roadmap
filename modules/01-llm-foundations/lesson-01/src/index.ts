@@ -22,14 +22,6 @@ async function main(): Promise<void> {
     const endTime = performance.now();
     const latencyMs = endTime - startTime;
 
-    // TODO: Log one JSON object containing:
-    // - timestamp
-    // - responseId
-    // - model
-    // - latencyMs
-    // - usage
-    // - outputText
-
     console.log(
       JSON.stringify(
         {
@@ -45,8 +37,23 @@ async function main(): Promise<void> {
       ),
     );
   } catch (error: unknown) {
-    console.error("Error occurred while processing the request:", error);
+    const latencyMs = performance.now() - startTime;
 
+    const errorRecord = {
+      timestamp: new Date().toISOString(),
+      model,
+      latencyMs,
+      status: "api_error",
+      error: {
+        type: error instanceof Error ? error.name : "UnknownError",
+        message:
+          error instanceof Error
+            ? error.message
+            : "An unknown error occurred while calling Gemini.",
+      },
+    };
+
+    console.error(JSON.stringify(errorRecord, null, 2));
     process.exitCode = 1;
   }
 }
