@@ -155,16 +155,16 @@
 
 ### 1. What is the difference between valid JSON, schema-valid data, and business-valid data?
 
-My answer: valid JSON mean it can be parsed as json data, schema-valid data means it contains the expected data types, whilethe business-valid data means it contains the expected data to process the business operation (i.e setting dental appointment.)
+My answer: Valid JSON means the output follows JSON syntax and can be parsed. Schema-valid data has the required fields and expected data types. Business-valid data means the values are logically consistent with the application’s rules.
 
 ### 2. Why should missing information be represented by `null` instead of an invented or guessed value?
 
-My answer: missing information should be represented by `null` instead of guessing to avoid unexpected or inaccurate response.
+My answer: Missing information should be represented by `null` instead of guessing to avoid unexpected or inaccurate response.
 
 ### 3. Why is an incomplete patient inquiry not necessarily a validation failure?
 
-My answer: I'm not really sure what to answer.
+My answer: An incomplete inquiry is not necessarily a validation failure because the AI can correctly represent missing information using null, list the missing fields, and set readiness to false. The output remains valid even though more information must be collected from the patient.
 
 ### 4. Why can the AI declare an inquiry ready for an availability check but not confirm the actual appointment?
 
-My answer: because there is no infomation reference or database to check the existing appointments.
+My answer: The AI can determine whether the required information was provided, but it cannot confirm the appointment because it does not have access to the clinic’s current schedules or booking database.

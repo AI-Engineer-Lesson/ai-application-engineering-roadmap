@@ -84,18 +84,18 @@ type BookingInquiry = {
 };
 
 const inquiries = [
-  // {
-  //   caseId: "vague",
-  //   text: "I need a checkup sometime next week, preferably after work.",
-  // },
-  //   {
-  //     caseId: "complete",
-  //     text: `
-  //       My name is Maria Santos. I am an existing patient.
-  //       I would like a routine dental checkup on August 24, 2026,
-  //       at 5:30 PM. You can contact me at 0917-000-0000.
-  //     `,
-  //   },
+  {
+    caseId: "vague",
+    text: "I need a checkup sometime next week, preferably after work.",
+  },
+  {
+    caseId: "complete",
+    text: `
+        My name is Maria Santos. I am an existing patient.
+        I would like a routine dental checkup on August 24, 2026,
+        at 5:30 PM. You can contact me at 0917-000-0000.
+      `,
+  },
   {
     caseId: "partial",
     text: `
@@ -109,45 +109,20 @@ const inquiries = [
 function validateBusinessRules(inquiry: BookingInquiry): string[] {
   const errors: string[] = [];
 
-  // TODO 1:
-  // If preferredDate is not null, verify that it follows YYYY-MM-DD.
+
   if (inquiry.preferredDate !== null) {
     if (!datePattern.test(inquiry.preferredDate)) {
       errors.push("Invalid preferred date format. Please use YYYY-MM-DD.");
     }
   }
 
-  // TODO 2:
-  // If preferredTime is not null, verify that it follows 24-hour HH:MM.
+
   if (inquiry.preferredTime !== null) {
     if (!timePattern.test(inquiry.preferredTime)) {
       errors.push("Invalid preferred time format. Please use 24-hour HH:MM.");
     }
   }
 
-  // TODO 3:
-  // Determine whether all minimum information is present:
-  // - patientName
-  // - contactInfo
-  // - known appointmentType
-  // - preferredDate
-  // - preferredTime
-  // - no missingInformation entries
-  if (
-    inquiry.patientName === null ||
-    inquiry.contactInfo === null ||
-    inquiry.appointmentType === "unknown" ||
-    inquiry.preferredDate === null ||
-    inquiry.preferredTime === null ||
-    inquiry.missingInformation.length > 0
-  ) {
-    errors.push("Incomplete information provided.");
-  }
-
-  // TODO 4:
-  // Compare your calculated readiness with
-  // inquiry.readyForAvailabilityCheck.
-  // Add an error when they disagree.
   const calculatedReadiness =
     inquiry.patientName !== null &&
     inquiry.contactInfo !== null &&
