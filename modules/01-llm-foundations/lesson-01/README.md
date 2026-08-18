@@ -24,3 +24,28 @@ Install the dependencies:
 
 ```bash
 npm install
+```
+
+Set the Gemini API key in PowerShell:
+
+```powershell
+$env:GEMINI_API_KEY="your-api-key"
+```
+
+Never commit the API key or place it directly in the source code.
+
+## Run
+
+```bash
+npm run lesson
+```
+
+## Lesson Files
+
+- `src/index.ts` — instrumented Gemini request
+- `results.md` — three-run experiment and knowledge-check answers
+- `package.json` — dependencies and lesson command
+
+## Learning Objective
+
+A technically successful API request does not guarantee a useful AI result. The application must separately observe and validate latency, usage, output quality, and errors.
