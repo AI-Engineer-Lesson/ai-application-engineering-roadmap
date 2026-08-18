@@ -3,7 +3,7 @@ import { performance } from "node:perf_hooks";
 import * as z from "zod";
 
 const ai = new GoogleGenAI({});
-const model = "gemini-3.7-flash";
+const model = "gemini-3.6-flash";
 
 const datePattern = /^\d{4}-\d{2}-\d{2}$/;
 const timePattern = /^([01]\d|2[0-3]):[0-5]\d$/;
@@ -91,18 +91,18 @@ const inquiries = [
   {
     caseId: "complete",
     text: `
-        My name is Maria Santos. I am an existing patient.
-        I would like a routine dental checkup on August 24, 2026,
-        at 5:30 PM. You can contact me at 0917-000-0000.
-      `,
+          My name is Maria Santos. I am an existing patient.
+          I would like a routine dental checkup on August 24, 2026,
+          at 5:30 PM. You can contact me at 0917-000-0000.
+        `,
   },
   {
     caseId: "partial",
     text: `
-        My name is Carlo Reyes. I have a painful tooth and would
-        like to visit as soon as possible. Please contact me at
-        carlo.example@example.com.
-      `,
+          My name is Carlo Reyes. I have a painful tooth and would
+          like to visit as soon as possible. Please contact me at
+          carlo.example@example.com.
+        `,
   },
 ];
 

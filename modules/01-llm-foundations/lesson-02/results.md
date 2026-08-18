@@ -12,9 +12,9 @@
 
 | Case     | Schema valid? | Business valid? | Inquiry status               | Important observation                                                                                                                         |
 | -------- | ------------- | --------------- | ---------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| Vague    | True          | False           | incomplete                   | Majority of the business information required are missing                                                                                     |
+| Vague    | True          | True           | incomplete                   | Majority of the business information required are missing                                                                                     |
 | Complete | True          | True            | ready_for_availability_check | Information were extracted from the statement completely.                                                                                     |
-| Partial  | True          | False           | incomplete                   | Business information was only partially complete. while the patient's information was complete. it is imposible to extract preferred schedule |
+| Partial  | True          | True           | incomplete                   | Business information was only partially complete. while the patient's information was complete. it is imposible to extract preferred schedule |
 
 ## Actual Outputs
 
@@ -22,13 +22,13 @@
 
 ```json
 {
-  "timestamp": "2026-08-18T05:46:03.783Z",
+  "timestamp": "2026-08-18T06:19:10.540Z",
   "caseId": "vague",
-  "responseId": "v1_ChdtUEdEYXFHcUJidTIxZThQcnRHeXlRZxIXbVBHRGFxR3FCYnUyMWU4UHJ0R3l5UWc",
+  "responseId": "v1_ChZXX21EYXM5UV83SFY3d19UMmV6b0NnEhZXX21EYXM5UV83SFY3d19UMmV6b0Nn",
   "model": "gemini-3.7-flash",
-  "latencyMs": 5562.7004,
+  "latencyMs": 13672.9017,
   "usage": {
-    "total_tokens": 605,
+    "total_tokens": 592,
     "total_input_tokens": 171,
     "input_tokens_by_modality": [
       {
@@ -37,16 +37,16 @@
       }
     ],
     "total_cached_tokens": 0,
-    "total_output_tokens": 111,
+    "total_output_tokens": 109,
     "total_tool_use_tokens": 0,
-    "total_thought_tokens": 323,
+    "total_thought_tokens": 312,
     "raw_prompt_token": 618
   },
-  "status": "validation_failure",
+  "status": "validation_success",
   "inquiryStatus": "incomplete",
-  "businessErrors": ["Incomplete information provided."],
+  "businessErrors": [],
   "output": {
-    "summary": "Patient is requesting a checkup sometime next week, preferably after work hours.",
+    "summary": "Patient is requesting a checkup appointment next week, preferably after work hours.",
     "patientName": null,
     "contactInfo": null,
     "appointmentType": "checkup",
@@ -55,8 +55,8 @@
     "missingInformation": [
       "patient name",
       "contact information",
-      "exact preferred date",
-      "exact preferred time"
+      "exact date",
+      "exact time"
     ],
     "readyForAvailabilityCheck": false
   }
@@ -67,13 +67,13 @@
 
 ```json
 {
-  "timestamp": "2026-08-18T05:47:46.943Z",
+  "timestamp": "2026-08-18T06:29:56.340Z",
   "caseId": "complete",
-  "responseId": "v1_ChdfX0dEYXM2SEp1R3kxZThQMzd1YzBRNBIXX19HRGFzNkhKdUd5MWU4UDM3dWMwUTQ",
-  "model": "gemini-3.7-flash",
-  "latencyMs": 9174.8943,
+  "responseId": "v1_Chc0UHVEYXFic0QtS0QwLWtQbmNiZW9RSRIXNFB1RGFxYnNELUtEMC1rUG5jYmVvUUk",
+  "model": "gemini-3.6-flash",
+  "latencyMs": 7879.3042000000005,
   "usage": {
-    "total_tokens": 658,
+    "total_tokens": 788,
     "total_input_tokens": 225,
     "input_tokens_by_modality": [
       {
@@ -82,16 +82,16 @@
       }
     ],
     "total_cached_tokens": 0,
-    "total_output_tokens": 128,
+    "total_output_tokens": 125,
     "total_tool_use_tokens": 0,
-    "total_thought_tokens": 305,
+    "total_thought_tokens": 438,
     "raw_prompt_token": 672
   },
   "status": "validation_success",
   "inquiryStatus": "ready_for_availability_check",
   "businessErrors": [],
   "output": {
-    "summary": "Existing patient Maria Santos is requesting a routine dental checkup on August 24, 2026, at 5:30 PM.",
+    "summary": "Maria Santos requested a routine dental checkup on August 24, 2026, at 5:30 PM.",
     "patientName": "Maria Santos",
     "contactInfo": "0917-000-0000",
     "appointmentType": "checkup",
@@ -107,13 +107,13 @@
 
 ```json
 {
-  "timestamp": "2026-08-18T05:48:38.317Z",
+  "timestamp": "2026-08-18T06:31:14.941Z",
   "caseId": "partial",
-  "responseId": "v1_ChZNdktEYXZhSUpNamUycm9Qd3BHbVdBEhZNdktEYXZhSUpNamUycm9Qd3BHbVdB",
-  "model": "gemini-3.7-flash",
-  "latencyMs": 24862.8361,
+  "responseId": "v1_ChdMX3lEYXU3WkVJbnMycm9QNFpyYmlRURIXTF95RGF1N1pFSW5zMnJvUDRacmJpUVE",
+  "model": "gemini-3.6-flash",
+  "latencyMs": 26285.488699999998,
   "usage": {
-    "total_tokens": 604,
+    "total_tokens": 683,
     "total_input_tokens": 198,
     "input_tokens_by_modality": [
       {
@@ -122,22 +122,25 @@
       }
     ],
     "total_cached_tokens": 0,
-    "total_output_tokens": 106,
+    "total_output_tokens": 107,
     "total_tool_use_tokens": 0,
-    "total_thought_tokens": 300,
+    "total_thought_tokens": 378,
     "raw_prompt_token": 645
   },
-  "status": "validation_failure",
+  "status": "validation_success",
   "inquiryStatus": "incomplete",
-  "businessErrors": ["Incomplete information provided."],
+  "businessErrors": [],
   "output": {
-    "summary": "Carlo Reyes requested an appointment as soon as possible for a painful tooth.",
+    "summary": "Carlo Reyes requested an urgent appointment for a painful tooth as soon as possible.",
     "patientName": "Carlo Reyes",
     "contactInfo": "carlo.example@example.com",
     "appointmentType": "urgent_concern",
     "preferredDate": null,
     "preferredTime": null,
-    "missingInformation": ["preferred date", "preferred time"],
+    "missingInformation": [
+      "preferred date",
+      "preferred time"
+    ],
     "readyForAvailabilityCheck": false
   }
 }
