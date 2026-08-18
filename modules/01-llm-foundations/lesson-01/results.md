@@ -27,16 +27,16 @@
 
 ### 1. Why can identical requests produce different outputs?
 
-My answer: I'm not really sure why.
+My answer: Identical requests can produce different outputs because an LLM generates its response by selecting from multiple probable next tokens instead of retrieving one fixed answer. Because of this, its wording, included details, and token usage can vary.
 
 ### 2. Why is API success insufficient to declare an AI operation successful?
 
-My answer: I think because AI sometimes make mistake. even though the API request succeeded, the response quality may not be consistent accross multiple prompts/inquiries.
+My answer: A successful API request only confirms that the request was processed without a technical error. The AI can still produce an inaccurate, incomplete, inconsistent, or unusable response, so the output quality must be validated separately.
 
 ### 3. Which parts of the workflow are deterministic and probabilistic?
 
-My answer: I'm not sure.
+My answer: Request construction and JSON logging are deterministic because they follow rules defined by the application code. The model’s generated response is probabilistic because its wording and selected details can vary. Latency is also variable, but mainly because of external conditions such as the network and API service load.
 
 ### 4. What must be validated before automatically creating an appointment?
 
-My answer: I think to confirm if the person is genuinely trying to set an appointment, and not some system attack/spam.
+My answer: Before automatically creating an appointment, the system should validate the patient’s identity, contact information, appointment type, and exact requested date and time. It should also check the clinic’s actual schedule availability to prevent conflicts and confirm that the patient genuinely intends to book the appointment.
