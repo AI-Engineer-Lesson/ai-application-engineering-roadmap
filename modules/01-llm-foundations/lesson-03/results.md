@@ -12,7 +12,7 @@
 
 | Input-token limit | Output-token limit |
 | ----------------: | -----------------: |
-|                   |                    |
+|         1,048,576 |             65,536 |
 
 ## Experiment
 
@@ -97,11 +97,11 @@
 
 ### How did input size affect token usage?
 
-My answer: The bigger the input size, the more input tokens it requires. According to the results, the majority of the tokens used is from the input token.
+My answer: Input-token usage increased as the number of policies increased. Input tokens dominated the medium and large cases, but not the small case, whose thinking-token usage was substantially higher.
 
 ### Did latency consistently increase with input size?
 
-My answer: According to the result. There's no direct correlation between latency and input size.
+My answer: Latency did not consistently increase with input size in this run. The small case was slowest, the medium case fastest, and the large case second slowest. Multiple runs would be needed to determine whether input size and latency are correlated.
 
 ### Were the preflight and actual input-token counts identical? What might explain the result?
 
@@ -111,20 +111,20 @@ My answer: Yes. I'm not entirely sure what explains the result.
 
 ### 1. Why are tokens not equivalent to words or characters?
 
-My answer: I'm not sure.
+My answer: Some words may require diffent number of tokens.
 
 ### 2. What is the difference between preflight token counting and response usage?
 
-My answer: Not sure
+My answer: Preflight token counting happens before the request while the actual response usage is after the request finishes. Preflight token counting helps the system decide if the prompt fit to system limit and such. While the actual response usage is the record of actual usage.
 
 ### 3. Why should a context window be treated as a capacity limit rather than a target?
 
-My answer: Not sure either
+My answer: Because the goal is to have the smallest but sufficient context, rather than filling it with unecessary context. It is because adding unecessary context may cloud the AI's judgement, which leads to inaccurate response.
 
 ### 4. Why should thinking tokens be included when estimating paid output cost?
 
-My answer: Not sure
+My answer: Because thinking token is included the total tokens used, which ultimately is the value used for counting the actual pricing calculation.
 
 ### 5. Why should a free-tier application still track latency and paid-equivalent cost?
 
-My answer: Not sure.
+My answer: Tracking latency and paid-equivalent cost even when using free-tier application helps us determine the estimated cost when we scale.

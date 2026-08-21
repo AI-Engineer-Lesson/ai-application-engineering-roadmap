@@ -89,10 +89,10 @@ ${context}
 
   // Read actual input, output, thought, and total tokens from usage.
   // Safely fall back to zero if a value is unavailable.
-  const actualInputTokens = response?.usage?.total_input_tokens || 0;
-  const outputTokens = response?.usage?.total_output_tokens || 0;
-  const thoughtTokens = response?.usage?.total_thought_tokens || 0;
-  const totalTokens = response?.usage?.total_tokens || 0;
+  const actualInputTokens = response?.usage?.total_input_tokens ?? 0;
+  const outputTokens = response?.usage?.total_output_tokens ?? 0;
+  const thoughtTokens = response?.usage?.total_thought_tokens ?? 0;
+  const totalTokens = response?.usage?.total_tokens ?? 0;
 
   // Calculate the percentage of the model's input limit used.
   const inputContextUtilizationPercent =
@@ -137,8 +137,8 @@ async function main(): Promise<void> {
   // Read inputTokenLimit and outputTokenLimit.
 
   const modelInfo = await ai.models.get({ model });
-  const inputTokenLimit = modelInfo?.inputTokenLimit || 0;
-  const outputTokenLimit = modelInfo?.outputTokenLimit || 0;
+  const inputTokenLimit = modelInfo?.inputTokenLimit ?? 0;
+  const outputTokenLimit = modelInfo?.outputTokenLimit ?? 0;
 
   console.log(
     JSON.stringify(
