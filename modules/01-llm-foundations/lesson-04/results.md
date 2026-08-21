@@ -13,12 +13,12 @@
 
 | Case        | Prompt mode      | Expected behavior     | Observed behavior                                                                          | Verdict |
 | ----------- | ---------------- | --------------------- | ------------------------------------------------------------------------------------------ | ------- |
-| Supported   | Baseline         | ANSWER_FROM_EVIDENCE  | the response is according to what's provided in the policy                                 |         |
-| Supported   | Evidence-bounded | ANSWER_FROM_EVIDENCE  | the response is according to what's provided in the policy                                 |         |
-| Missing     | Baseline         | INSUFFICIENT_EVIDENCE | there is no information regarding parking fee, therefore the AI responded appropriately.   |         |
-| Missing     | Evidence-bounded | INSUFFICIENT_EVIDENCE | the response text is INSUFFICIENT_EVIDENCE                                                 |         |
-| Conflicting | Baseline         | CONFLICTING_EVIDENCE  | there's conflicting information in the policy, but the AI responded with both information. |         |
-| Conflicting | Evidence-bounded | CONFLICTING_EVIDENCE  | the response text is CONFLICTING_EVIDENCE                                                  |         |
+| Supported   | Baseline         | ANSWER_FROM_EVIDENCE  | the response is according to what's provided in the policy                                 | PASS    |
+| Supported   | Evidence-bounded | ANSWER_FROM_EVIDENCE  | the response is according to what's provided in the policy                                 | PASS    |
+| Missing     | Baseline         | INSUFFICIENT_EVIDENCE | there is no information regarding parking fee, therefore the AI responded appropriately.   | PASS    |
+| Missing     | Evidence-bounded | INSUFFICIENT_EVIDENCE | the response text is INSUFFICIENT_EVIDENCE                                                 | PASS    |
+| Conflicting | Baseline         | CONFLICTING_EVIDENCE  | there's conflicting information in the policy, but the AI responded with both information. | PASS    |
+| Conflicting | Evidence-bounded | CONFLICTING_EVIDENCE  | the response text is CONFLICTING_EVIDENCE                                                  | PASS    |
 
 Use one of these verdicts:
 
@@ -112,25 +112,25 @@ Use one of these verdicts:
 
 ### Did the baseline prompt answer a question that lacked evidence?
 
-My answer: Yes
+My answer: No. The baseline response correctly stated that the supplied policy did not contain parking-fee information. Therefore, it abstained instead of inventing an answer.
 
 ### Did either prompt detect the conflicting policies?
 
-My answer: Yes, but the baseline prompt returned a response with both the conflicting policies.
+My answer: Both prompts detected the incompatible information. The baseline explained both the 24-hour and 48-hour policies, while the evidence-bounded prompt returned the required CONFLICTING_EVIDENCE sentinel.
 
 ### How did the evidence-bounded instructions change behavior?
 
-My answer: The answer is provided without mentioning what policy it is.
+My answer: The bounded prompt introduced explicit, machine-detectable fallback responses. It returned INSUFFICIENT_EVIDENCE when information was missing and CONFLICTING_EVIDENCE when records disagreed, instead of generating a conversational explanation.
 
 ### Can this experiment prove that the bounded prompt will never hallucinate?
 
-My answer: I'm not sure
+My answer: No. The experiment tested only three cases once each. LLM output is probabilistic, and different or adversarial inputs may produce failures. The prompt reduces risk but does not guarantee correctness.
 
 ## Knowledge Check
 
 ### 1. What makes a generated statement a hallucination in this application?
 
-My answer: I'm not sure. the
+My answer: A generated factual claim is a hallucination when it is not supported by the evidence available to the application.
 
 ### 2. Why is a confident and plausible answer not sufficient evidence of correctness?
 
@@ -142,8 +142,8 @@ My answer: Insufficient evidence means that there is no evidence as reference to
 
 ### 4. Why should an application distinguish abstention from request failure?
 
-My answer: I'm not sure
+My answer: Abstention means the request succeeded, but the application lacked sufficient or consistent evidence to answer safely. Request failure means a technical problem prevented completion, such as a timeout, network error, rate limit, or invalid API response.
 
 ### 5. Why can prompt instructions reduce hallucinations without eliminating them?
 
-My answer: I'm not sure how to explain.
+My answer: Prompt instructions influence model behavior but do not enforce it deterministically. The model can misunderstand, overlook, or fail to follow instructions, especially with ambiguous, unfamiliar, or adversarial input.
