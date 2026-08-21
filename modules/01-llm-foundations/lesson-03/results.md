@@ -105,7 +105,7 @@ My answer: Latency did not consistently increase with input size in this run. Th
 
 ### Were the preflight and actual input-token counts identical? What might explain the result?
 
-My answer: Yes. I'm not entirely sure what explains the result.
+My answer: Yes. They matched because both operations processed the same prompt with the same model and tokenizer. They may differ in more complex workflows if additional instructions, tools, cached content, or other context are included during generation.
 
 ## Knowledge Check
 
@@ -123,8 +123,8 @@ My answer: Because the goal is to have the smallest but sufficient context, rath
 
 ### 4. Why should thinking tokens be included when estimating paid output cost?
 
-My answer: Because thinking token is included the total tokens used, which ultimately is the value used for counting the actual pricing calculation.
+My answer: Thinking tokens represent computation performed by the model even though they are not visible in the final response. Because Gemini charges them using the output-token rate, they must be added to visible output tokens when estimating output cost.
 
 ### 5. Why should a free-tier application still track latency and paid-equivalent cost?
 
-My answer: Tracking latency and paid-equivalent cost even when using free-tier application helps us determine the estimated cost when we scale.
+My answer: Paid-equivalent cost helps estimate production expenses, compare models, and prepare for scaling beyond the free tier. Latency tracking helps detect slow requests and performance regressions that affect the user experience.
