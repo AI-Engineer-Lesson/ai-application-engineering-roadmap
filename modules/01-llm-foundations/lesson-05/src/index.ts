@@ -129,7 +129,8 @@ function estimatePaidEquivalentCost(usage: TokenUsage): number {
   const inputCost =
     (usage.inputTokens / 1_000_000) * paidPricing.inputPerMillionTokensUsd;
   const outputCost =
-    (usage.outputTokens / 1_000_000) * paidPricing.outputPerMillionTokensUsd;
+    ((usage.outputTokens + usage.thoughtTokens) / 1_000_000) *
+    paidPricing.outputPerMillionTokensUsd;
   return inputCost + outputCost;
 }
 

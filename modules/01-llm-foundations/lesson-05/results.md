@@ -52,11 +52,11 @@ The `status` field allows TypeScript to determine which type of record is being 
 
 ## Request Summary
 
-| Case          | Status  | Outcome or error code | Quality verdict |       Latency (ms) | Input tokens | Output tokens | Thought tokens |        Paid equivalent |
-| ------------- | ------- | --------------------- | --------------- | -----------------: | -----------: | ------------: | -------------: | ---------------------: |
-| Supported     | success | answered              | PASS            |         68008.0844 |           37 |            21 |            132 | 0.00010649999999999999 |
-| Abstention    | success | abstained             | PASS            |  63664.35990000001 |           56 |             7 |            185 |             0.00006825 |
-| Invalid input | error   | invalid_input         | N/A             | 0.2327999999979511 |          N/A |           N/A |            N/A |                    N/A |
+| Case          | Status  | Outcome or error code | Quality verdict |       Latency (ms) | Input tokens | Output tokens | Thought tokens |       Paid equivalent |
+| ------------- | ------- | --------------------- | --------------- | -----------------: | -----------: | ------------: | -------------: | --------------------: |
+| Supported     | success | answered              | PASS            |  7954.971299999997 |           37 |            21 |            137 | 0.0006202499999999999 |
+| Abstention    | success | abstained             | PASS            |            7156.82 |           56 |             7 |            122 |            0.00052575 |
+| Invalid input | error   | invalid_input         | N/A             | 0.2673000000031607 |          N/A |           N/A |            N/A |                   N/A |
 
 ## Actual Records
 
@@ -66,24 +66,24 @@ This request contains enough evidence to answer the question. It should produce 
 
 ```json
 {
-  "timestamp": "2026-08-21T15:37:51.795Z",
-  "requestId": "baec997e-daf6-4cce-ae6c-b03651cc2844",
+  "timestamp": "2026-08-22T09:17:41.338Z",
+  "requestId": "52a283e6-f13c-47e2-9bc9-15f91d8edcf1",
   "model": "gemini-3.7-flash",
   "promptVersion": "lesson-05-v1",
   "caseId": "supported",
   "status": "success",
   "outcome": "answered",
   "qualityVerdict": "PASS",
-  "latencyMs": 68008.0844,
+  "latencyMs": 7954.971299999997,
   "usage": {
     "inputTokens": 37,
     "outputTokens": 21,
-    "thoughtTokens": 132,
-    "totalTokens": 190
+    "thoughtTokens": 137,
+    "totalTokens": 195
   },
-  "paidEquivalentCostUsd": 0.00010649999999999999,
+  "paidEquivalentCostUsd": 0.0006202499999999999,
   "actualFreeTierCostUsd": 0,
-  "outputText": "Based on the supplied policy, appointments must be cancelled at least 24 hours before their scheduled time."
+  "outputText": "Based on the provided policy, appointments must be cancelled at least 24 hours before their scheduled time."
 }
 ```
 
@@ -93,22 +93,22 @@ This request does not contain the parking-fee information required to answer the
 
 ```json
 {
-  "timestamp": "2026-08-21T15:38:55.462Z",
-  "requestId": "d8b409af-6a84-4a23-b153-1449de4ecf13",
+  "timestamp": "2026-08-22T09:17:48.498Z",
+  "requestId": "9f3cbbb2-644c-4ceb-8b4b-a709c62511ce",
   "model": "gemini-3.7-flash",
   "promptVersion": "lesson-05-v1",
   "caseId": "abstention",
   "status": "success",
   "outcome": "abstained",
   "qualityVerdict": "PASS",
-  "latencyMs": 63664.35990000001,
+  "latencyMs": 7156.82,
   "usage": {
     "inputTokens": 56,
     "outputTokens": 7,
-    "thoughtTokens": 165,
-    "totalTokens": 228
+    "thoughtTokens": 122,
+    "totalTokens": 185
   },
-  "paidEquivalentCostUsd": 0.00006825,
+  "paidEquivalentCostUsd": 0.00052575,
   "actualFreeTierCostUsd": 0,
   "outputText": "INSUFFICIENT_EVIDENCE"
 }
@@ -120,13 +120,13 @@ This request contains only whitespace. Application validation should reject it b
 
 ```json
 {
-  "timestamp": "2026-08-21T15:38:55.462Z",
-  "requestId": "935dda1e-0032-4d5d-bcbd-1f1fd98d1fa4",
+  "timestamp": "2026-08-22T09:17:48.499Z",
+  "requestId": "73554d3c-c184-4f92-9b78-64d3a48e0c6a",
   "model": "gemini-3.7-flash",
   "promptVersion": "lesson-05-v1",
   "caseId": "invalid-input",
   "status": "error",
-  "latencyMs": 0.2327999999979511,
+  "latencyMs": 0.2673000000031607,
   "error": {
     "code": "invalid_input",
     "name": "ApplicationError",
@@ -162,7 +162,7 @@ Imagine investigating an incorrect output in a production system containing thou
 - **Trace:** Follow an operation across logs or application components.
 - **Prompt version:** The identifier of the prompt design used for a request.
 
-My answer: I honestly don't know
+My answer: request ID helps us identify which request failed, and the prompt vesion helps us identify which prompt design was used for the request. With these, we can have the answer to the following questions: which specific request failed? Are failures concentrated in one prompt version?
 
 ## 3. Why should raw prompts normally be excluded from production logs?
 
@@ -196,7 +196,7 @@ Retrying the same operation without changing anything is useful only when the fa
 - **Transient error:** A temporary error that may disappear without changing the request.
 - **Validation error:** An error caused by input that does not satisfy application requirements.
 
-My answer: 1 and 2. But I'm not sure.
+My answer: None
 
 # Knowledge Check
 
@@ -316,7 +316,7 @@ Slow, expensive, and incorrect
 - **Quality metric:** A measurement indicating whether an output satisfies correctness or business requirements.
 - **Tradeoff:** A situation where improving one property may negatively affect another.
 
-My answer: This is to help measure if we've set up the prompt correctly. The less incorrect answers, the better the output quality.
+My answer: It's because those are different. One prompt could be fast but incorrect, slow but cheap and correct, fast and correct.
 
 # Final Review Checklist
 
