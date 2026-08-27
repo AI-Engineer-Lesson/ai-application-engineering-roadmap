@@ -183,7 +183,7 @@ def run_case(test_case: dict[str, Any]) -> None:
     # - store=False
     #
     # Save the returned Interaction object in this variable.
-    interaction =  client.interactions.create(
+    interaction = client.interactions.create(
         model=MODEL,
         system_instruction=system_instruction,
         input=input_text,

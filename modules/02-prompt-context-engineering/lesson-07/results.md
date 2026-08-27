@@ -91,7 +91,7 @@ The phrases “usual appointment” and “soon” depend on information unavail
 
 **Question:** Which fields were ambiguous, and what information did the model request to resolve them?
 
-My answer:The ambiguous fields were the date, time, appointment type. Since there were no information that meets the appointment requirements, the model asked for all of it.
+My answer: The ambiguous or missing fields were the patient type, requested service, preferred date, and preferred time. “Usual appointment” does not identify a service, while “soon” does not identify a date. The model asked whether the patient was new or returning, which service they wanted, and their preferred date and time.
 
 ### 4. Contradictory Request
 
@@ -99,7 +99,7 @@ The user says they are available only in the morning but requests 3:00 PM.
 
 **Question:** Did the model recognize the contradiction? What must happen before the application prepares a booking operation?
 
-My answer: Yes. The model asked which of the information is going to be the schedule time.
+My answer: The application must wait for the patient to resolve the conflicting time information. After receiving one consistent time, application code must validate the required fields and check actual clinic availability before preparing a booking operation.
 
 ## Python Reflection
 
@@ -148,7 +148,7 @@ Imagine three API routes independently construct slightly different clinic promp
 
 **Question:** What maintenance and reliability problems could arise compared with using one reusable template?
 
-My answer: The output quality would be very inconsistent.
+My answer: Independent prompts can gradually develop different rules, formats, and behavior. A bug fix or business-rule change would have to be applied separately to every route, making it easy to miss one. A reusable template keeps the rules consistent and allows one change to apply everywhere.
 
 ### 2. Which Details May Be Assumed?
 
@@ -192,4 +192,7 @@ Consider:
 
 **Question:** Which values are stable template instructions, configuration variables, and request-specific variables? Explain your grouping.
 
-My answer: stable template instructions: Clinic role and behavioral rules, Allowed service list. configuration variables: Specific patient’s preferred date. request-specific variables: Output contract, Current user request
+My answer: 
+    Stable template instructions: clinic role, behavioral rules, output contract
+    Configuration variable: allowed service list
+    Request-specific variables: current user request and the patient’s preferred date
