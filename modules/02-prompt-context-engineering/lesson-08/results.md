@@ -92,25 +92,25 @@ My answer: I don't see any significant improvement on the few-shot prompting whe
 
 **Question:** Did either prompt variant violate the required output format? If both achieved full compliance, what can and cannot be concluded from only four cases?
 
-My answer: Neither of the prompt variants violated the required output format. I'm not sure.
+My answer: Both variants achieved 4/4 format compliance. This shows that the required format worked for these four synthetic cases in this execution. It does not prove that every future output will comply, especially for ambiguous, unusual, adversarial, or differently worded tickets.
 
 ### 3. Differences in Reasons
 
 **Question:** Compare the zero-shot and few-shot `REASON` values. Did the examples noticeably affect their length, wording, or focus?
 
-My answer: There seems to be no significant difference, I'm not entirely sure.
+My answer: There was no significant difference in length or focus. Both variants produced one concise sentence explaining the relevant category and urgency. Some few-shot responses used wording similar to the demonstrations, such as “financial investigation” and “rather than reporting an issue,” suggesting that the examples influenced phrasing slightly.
 
 ### 4. Latency
 
 **Question:** Was few-shot prompting consistently slower in this run? Why is one execution per case insufficient for drawing a reliable performance conclusion?
 
-My answer: Not sure
+My answer: Few-shot prompting was not consistently slower. It was faster for the refund-delay and change-email cases but slower for the production-error and dark-mode cases. One call per case is insufficient because network conditions, server load, and model processing time naturally vary. Multiple runs and average or median latency would provide better evidence.
 
 ### 5. Recommendation
 
 **Question:** Based only on this experiment, would you use the zero-shot or few-shot version? Explain the tradeoff. It is acceptable to conclude that the current evidence does not establish a meaningful winner.
 
-My answer: The current evidence does not establish a meaningful winner. Although one tradeoff is that it uses more input token, I would still use the few-shot version compared to the zero-shot prompt.
+My answer: The experiment does not establish a meaningful accuracy winner because both variants scored 4/4 throughout. I would currently prefer zero-shot because it achieved the same observed result with fewer input tokens and less prompt maintenance. I would choose few-shot if broader testing showed improved consistency or difficult category boundaries.
 
 ## Python Reflection
 
@@ -137,7 +137,7 @@ formatted_examples.append(formatted_example)
 
 **Question:** What does `append()` do, and why is a list useful before joining the examples into one string?
 
-My answer: `append()` places the formatted_example string inside the formatted_examples list. To make a separate the data from examples.
+My answer: `append()` places the formatted_example string inside the formatted_examples list. A list lets the program collect each separately formatted example in order. After all examples are collected, join() combines them into one prompt string with consistent separators.
 
 ### 3. Filtering with a List Comprehension
 
@@ -153,8 +153,7 @@ variant_results = [
 
 **Question:** What values will this expression include?
 
-My answer: I'm not really sure
-
+My answer: It includes only the result dictionaries whose prompt_variant value equals the current variant, such as only the zero-shot results or only the few-shot results.
 ### 4. Boolean Summation
 
 Consider:
@@ -168,7 +167,7 @@ category_correct = sum(
 
 **Question:** Why can Python use `sum()` to count the correct Boolean results?
 
-My answer: Not sure
+My answer: Python treats True numerically as 1 and False as 0. Therefore, sum() counts how many results have category_correct equal to True.
 
 ### 5. Set Membership
 
@@ -180,7 +179,7 @@ category in ALLOWED_CATEGORIES
 
 **Question:** What does this expression check, and why is it useful when validating model output?
 
-My answer: it checks if the category value is present in the ALLOWED_CATEGORIES list.
+My answer: It checks whether the parsed category exactly matches one of the allowed category labels. This helps detect unsupported, misspelled, or missing model outputs.
 
 ## Knowledge Check
 
@@ -188,7 +187,7 @@ My answer: it checks if the category value is present in the ALLOWED_CATEGORIES 
 
 **Question:** What is the difference between zero-shot and few-shot prompting? Does few-shot prompting retrain the model?
 
-My answer: Zero-shots does not include examples while few-shot prompting does. Not sure
+My answer: Zero-shots does not include examples while few-shot prompting does. Few-shot prompting does not retrain or permanently modify the model. The demonstrations are temporary context supplied with the current request.
 
 ### 2. Example Quality
 
@@ -202,13 +201,13 @@ My answer: future password-reset request may be classified as TECHNICAL incorrec
 
 **Question:** Why should the exact evaluation tickets not also appear among the few-shot examples?
 
-My answer: Not sure
+My answer: If an evaluation ticket also appears as a demonstration, the model has already been shown its expected answer. A correct response would provide weak evidence that the model can generalize to unseen tickets.
 
 ### 4. Balanced Examples
 
 **Question:** What problem could occur if eight demonstrations are `BILLING` and only one represents all other categories?
 
-My answer: Not sure
+My answer: An example set dominated by BILLING could bias the model toward that category and provide insufficient guidance for distinguishing the underrepresented categories.
 
 ### 5. Prompt Cost
 
@@ -220,16 +219,16 @@ My answer: few-shot prompting costs more input token, which contributes to the t
 
 **Question:** If the evaluation dataset contains an incorrect expected label, what happens to the reported accuracy?
 
-My answer: Not sure
+My answer: An incorrect expected label makes correct model behavior appear incorrect, or incorrect behavior appear correct. This makes the reported accuracy unreliable.
 
 ### 7. Small Dataset Limitation
 
 **Question:** Why does scoring 4/4 on this dataset not prove that the classifier is production-ready?
 
-My answer: Not sure
+My answer: Four synthetic cases do not cover ambiguous, mixed-intent, misspelled, adversarial, multilingual, or unusual real-world tickets. The experiment also ran each case only once, so it does not establish consistency across repeated executions.
 
 ### 8. Prompt Contract Versus Schema
 
 **Question:** Why must the application still validate category and urgency even though the prompt explicitly restricts the allowed values?
 
-My answer: The user might say that it's high ugency when it's systematically not.
+My answer: Prompt instructions do not technically guarantee compliance. The model could return an unsupported label, omit a field, or produce malformed output. Application code must validate the parsed values before trusting or using them.

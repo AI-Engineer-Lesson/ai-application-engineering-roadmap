@@ -13,7 +13,8 @@
 
 - **Provider:** Google Gemini API
 - **Tier:** Free tier
-- **Model:** `gemini-3.7-flash`
+- **Model:** `gemini-3.6-flash`
+- **Model deviation:** Used instead of `gemini-3.7-flash` because the available Gemini 3.7 Flash free-tier quota was exhausted.
 - **Data:** Synthetic only
 - **Expected actual cost:** $0 within free-tier limits
 - **Python SDK:** `google-genai` version 2.3.0 or newer
