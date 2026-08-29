@@ -95,9 +95,3 @@ I'm still getting the hang of it.
 ### What part still needs clarification?
 
 I'm still getting the hang of it.
-
----
-
-### Feedback
-
-Reviewer feedback goes here.
