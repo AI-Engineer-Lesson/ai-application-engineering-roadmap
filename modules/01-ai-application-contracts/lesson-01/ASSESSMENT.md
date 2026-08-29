@@ -98,14 +98,6 @@ I'm still getting the hang of it.
 
 ---
 
-## Reviewer Decision
-
-To be completed during review.
-
-- [ ] Passed
-- [ ] Minor corrections required
-- [x] Revisions required
-
 ### Feedback
 
 Reviewer feedback goes here.
