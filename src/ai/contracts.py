@@ -6,7 +6,6 @@ from typing import Protocol
 class AIRequest:
     prompt: str
     system_instruction: str | None = None
-    temperature: float = 0.0
     max_output_tokens: int = 300
 
 

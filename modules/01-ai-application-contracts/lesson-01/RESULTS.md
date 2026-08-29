@@ -29,8 +29,7 @@ tests\test_pricing.py .                                                         
 
 - **Provider:** Gemini
 - **Model:** gemini-3.6-flash
-- **Temperature:** `0.0`
-- **Maximum output tokens:** `200`
+- **Maximum output tokens:** `512`
 
 ### Prompt
 
@@ -44,9 +43,9 @@ A patient says: "I want an appointment sometime next week." In two short sentenc
 
 | Run | Latency (ms) | Input tokens | Output tokens | Thought tokens | Total observed tokens | Estimated cost |
 | --: | -----------: | -----------: | ------------: | -------------: | --------------------: | -------------: |
-|   1 |      2823.83 |           50 |            44 |            406 |                   500 |    $0.00172500 |
-|   2 |      3382.05 |           50 |            40 |            368 |                   458 |    $0.00156750 |
-|   3 |      4614.33 |           50 |            45 |            341 |                   436 |    $0.00148500 |
+|   1 |     13592.76 |           50 |            44 |            406 |                   500 |    $0.00172500 |
+|   2 |      7872.87 |           50 |            40 |            368 |                   458 |    $0.00156750 |
+|   3 |     17219.33 |           50 |            45 |            341 |                   436 |    $0.00148500 |
 
 ### Run 1 Response
 
@@ -104,13 +103,13 @@ Estimated cost: $0.00148500
 - **Official pricing source:** https://ai.google.dev/gemini-api/docs/pricing#standard_1
 - **Input price per 1 million tokens:** $0.75
 - **Output price per 1 million tokens:** $3.75
-- **Thought tokens billed as:** per 1M tokens in USD
+- **Thought tokens billed as:** Output tokens at $3.75 per one million tokens
 
 | Run | Estimated cost |
 | --: | -------------: |
-|   1 |    $0.00194250 |
-|   2 |    $0.00018450 |
-|   3 |    $0.00018450 |
+|   1 |    $0.00172500 |
+|   2 |    $0.00156750 |
+|   3 |    $0.00148500 |
 
 ---
 
@@ -118,17 +117,17 @@ Estimated cost: $0.00148500
 
 ### Were the responses textually identical?
 
-Somewhat
+- No
 
 ### Were they semantically equivalent?
 
-No
+- Yes. All three requested the same essential information: patient details, preferred dates and times, and the reason for the visit. Some runs added extra details such as date of birth or provider preference.
 
 ### What varied between the runs?
 
 Consider response wording, latency, and token usage.
 
-- The output wording were different. Latency also differ from each run.
+- The wording, additional requested details, latency, thought-token usage, output-token usage, and estimated cost varied.
 
 ---
 
@@ -136,7 +135,7 @@ Consider response wording, latency, and token usage.
 
 Record errors, SDK differences, or implementation problems encountered during the lesson.
 
-- Output Truncation
+- Initial responses were truncated because thinking consumed most of the 200-token limit. Increasing the limit to 512 and using low thinking effort produced complete responses.
 
 ---
 

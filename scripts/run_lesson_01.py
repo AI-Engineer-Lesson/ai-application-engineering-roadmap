@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import os
-from urllib import response
 
 from dotenv import load_dotenv
 
