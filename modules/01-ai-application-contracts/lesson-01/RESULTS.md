@@ -44,24 +44,24 @@ A patient says: "I want an appointment sometime next week." In two short sentenc
 
 | Run | Latency (ms) | Input tokens | Output tokens | Thought tokens | Total observed tokens | Estimated cost |
 | --: | -----------: | -----------: | ------------: | -------------: | --------------------: | -------------: |
-|   1 |      2823.83 |           50 |             3 |            193 |                   246 |    $0.00018450 |
-|   2 |      3382.05 |           50 |             5 |            191 |                   246 |    $0.00018450 |
-|   3 |      4614.33 |           50 |             3 |            193 |                   246 |    $0.00018450 |
+|   1 |      2823.83 |           50 |            18 |            490 |                   558 |    $0.00194250 |
+|   2 |      3382.05 |           50 |            22 |            486 |                   558 |    $0.00018450 |
+|   3 |      4614.33 |           50 |            20 |            488 |                   558 |    $0.00018450 |
 
 ### Run 1 Response
 
 ```text
 Provider: gemini
 Model: gemini-3.6-flash
-Latency: 2823.83 ms
+Latency: 4642.93 ms
 Input tokens: 50
-Output tokens: 3
-Thought tokens: 193
-Total observed tokens: 246
+Output tokens: 18
+Thought tokens: 490
+Total observed tokens: 558
 
 Response:
-To finalize your
-Estimated cost: $0.00018450
+To schedule your visit, we still need your preferred specific date, time, and the reason
+Estimated cost: $0.00194250
 ```
 
 ### Run 2 Response
@@ -69,15 +69,15 @@ Estimated cost: $0.00018450
 ```text
 Provider: gemini
 Model: gemini-3.6-flash
-Latency: 3382.05 ms
+Latency: 4564.13 ms
 Input tokens: 50
-Output tokens: 5
-Thought tokens: 191
-Total observed tokens: 246
+Output tokens: 22
+Thought tokens: 486
+Total observed tokens: 558
 
 Response:
-To process your request,
-Estimated cost: $0.00018450
+To process your request, we still need your full name, contact information, and your preferred dates and times.
+Estimated cost: $0.00194250
 ```
 
 ### Run 3 Response
@@ -85,32 +85,32 @@ Estimated cost: $0.00018450
 ```text
 Provider: gemini
 Model: gemini-3.6-flash
-Latency: 4614.33 ms
+Latency: 9124.53 ms
 Input tokens: 50
-Output tokens: 3
-Thought tokens: 193
-Total observed tokens: 246
+Output tokens: 20
+Thought tokens: 488
+Total observed tokens: 558
 
 Response:
-We need the
-Estimated cost: $0.00018450
+To process the request, we still need the patient's full name, contact details, and the
+Estimated cost: $0.00194250
 ```
 
 ---
 
 ## Cost Estimate
 
-- **Pricing checked on:**
-- **Official pricing source:**
-- **Input price per 1 million tokens:**
-- **Output price per 1 million tokens:**
-- **Thought tokens billed as:**
+- **Pricing checked on:** 29/08/2026
+- **Official pricing source:** https://ai.google.dev/gemini-api/docs/pricing#standard_1
+- **Input price per 1 million tokens:** $0.75
+- **Output price per 1 million tokens:** $3.75
+- **Thought tokens billed as:** per 1M tokens in USD
 
 | Run | Estimated cost |
 | --: | -------------: |
-|   1 |                |
-|   2 |                |
-|   3 |                |
+|   1 |    $0.00194250 |
+|   2 |    $0.00018450 |
+|   3 |    $0.00018450 |
 
 ---
 
@@ -128,11 +128,7 @@ Not Sure
 
 Consider response wording, latency, and token usage.
 
-The response were cut off due to the limit, so I can't say.
-
-### Did setting the temperature to zero make the complete operation deterministic?
-
-Not Sure
+- The output wording were different, some were still cut out due to the set limit. Latency also differ from each run.
 
 ---
 
@@ -140,7 +136,7 @@ Not Sure
 
 Record errors, SDK differences, or implementation problems encountered during the lesson.
 
-- None
+- Output Truncation
 
 ---
 
@@ -148,4 +144,4 @@ Record errors, SDK differences, or implementation problems encountered during th
 
 What is the most useful thing you learned from this implementation and experiment?
 
-Creating Adapter specifically for each Provider helps a lot to make the system run without having to modify a good chunk of the code.
+- Creating Adapter specifically for each Provider helps a lot to make the system run without having to modify a good chunk of the code. setting token usage is also a very helpful learning.

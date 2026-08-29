@@ -2,12 +2,12 @@
 
 ## Completion Check
 
-- [ ] Provider-neutral AI contracts implemented
-- [ ] Gemini adapter implemented
-- [ ] Unit tests passing without a real API call
-- [ ] Three real requests recorded in `RESULTS.md`
-- [ ] Token usage, latency, and cost analyzed
-- [ ] No secrets committed
+- [x] Provider-neutral AI contracts implemented
+- [x] Gemini adapter implemented
+- [x] Unit tests passing without a real API call
+- [x] Three real requests recorded in `RESULTS.md`
+- [x] Token usage, latency, and cost analyzed
+- [x] No secrets committed
 
 ---
 
@@ -28,8 +28,6 @@ Why should application code depend on `AIProvider` instead of directly depending
 If you replaced Gemini with OpenAI, which parts of the current implementation should change, and which parts should remain unchanged?
 
 **Answer:** Add an OpenAIProvider, use it on the main(), don't change everything else.
-
-Write your answer here.
 
 ---
 
@@ -60,7 +58,7 @@ Why does the unit test use `FakeProvider` instead of making a real Gemini reques
 
 When would a real API test still be useful?
 
-**Answer:** To avoid unecessary API usage.
+**Answer:** To avoid unecessary API usage when testing repeatability, speed, offline execution. A real API test verifies SDK/API integration.
 
 ---
 
@@ -76,7 +74,7 @@ Why must the application not assume that the appointment was actually booked?
 
 What deterministic checks or actions are still required?
 
-**Answer:** check in the Database
+**Answer:** check in the Database, authentication, authorization, patient validation, slot availability, confirmation, idempotency, the actual trusted booking operation, and transaction verification.
 
 ---
 
@@ -84,7 +82,7 @@ What deterministic checks or actions are still required?
 
 If the provider times out or returns an empty response, what should the application do?
 
-**Answer:** Not sure
+**Answer:** The application must return a controlled failure, never claim success, record the error safely, and retry only according to an explicit policy.
 
 ---
 
@@ -106,7 +104,7 @@ To be completed during review.
 
 - [ ] Passed
 - [ ] Minor corrections required
-- [ ] Revisions required
+- [x] Revisions required
 
 ### Feedback
 

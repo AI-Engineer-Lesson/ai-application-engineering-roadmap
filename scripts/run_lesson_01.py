@@ -22,8 +22,7 @@ def create_request() -> AIRequest:
             "In two short sentences, explain what information is still needed "
             "before an appointment can be requested."
         ),
-        temperature=0.0,
-        max_output_tokens=200,
+        max_output_tokens=512,
     )
 
 
@@ -42,11 +41,11 @@ def run(provider: AIProvider) -> None:
     print(response.text)
 
     pricing = ModelPricing(
-        provider="gemini",
+        provider=response.provider,
         model=response.model,
         input_usd_per_million_tokens=0.75,
-        output_usd_per_million_tokens=0.75,
-        effective_date=date(2026, 8, 1),
+        output_usd_per_million_tokens=3.75,
+        effective_date=date(2026, 8, 29),
         source_url="https://ai.google.dev/gemini-api/docs/pricing",
     )
     

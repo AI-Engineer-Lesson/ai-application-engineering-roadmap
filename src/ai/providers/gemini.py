@@ -22,7 +22,6 @@ class GeminiProvider:
     def generate(self, request: AIRequest) -> AIResponse:
         config = types.GenerateContentConfig(
             system_instruction=request.system_instruction,
-            temperature=request.temperature,
             max_output_tokens=request.max_output_tokens,
         )
 
