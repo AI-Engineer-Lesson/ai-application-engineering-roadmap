@@ -44,24 +44,24 @@ A patient says: "I want an appointment sometime next week." In two short sentenc
 
 | Run | Latency (ms) | Input tokens | Output tokens | Thought tokens | Total observed tokens | Estimated cost |
 | --: | -----------: | -----------: | ------------: | -------------: | --------------------: | -------------: |
-|   1 |      2823.83 |           50 |            18 |            490 |                   558 |    $0.00194250 |
-|   2 |      3382.05 |           50 |            22 |            486 |                   558 |    $0.00018450 |
-|   3 |      4614.33 |           50 |            20 |            488 |                   558 |    $0.00018450 |
+|   1 |      2823.83 |           50 |            44 |            406 |                   500 |    $0.00172500 |
+|   2 |      3382.05 |           50 |            40 |            368 |                   458 |    $0.00156750 |
+|   3 |      4614.33 |           50 |            45 |            341 |                   436 |    $0.00148500 |
 
 ### Run 1 Response
 
 ```text
 Provider: gemini
 Model: gemini-3.6-flash
-Latency: 4642.93 ms
+Latency: 13592.76 ms
 Input tokens: 50
-Output tokens: 18
-Thought tokens: 490
-Total observed tokens: 558
+Output tokens: 44
+Thought tokens: 406
+Total observed tokens: 500
 
 Response:
-To schedule your visit, we still need your preferred specific date, time, and the reason
-Estimated cost: $0.00194250
+To process the request, we still need the patient's full name, date of birth, and preferred dates and times. Additionally, we need to know the reason for the visit so we can select the appropriate provider.
+Estimated cost: $0.00172500
 ```
 
 ### Run 2 Response
@@ -69,15 +69,15 @@ Estimated cost: $0.00194250
 ```text
 Provider: gemini
 Model: gemini-3.6-flash
-Latency: 4564.13 ms
+Latency: 7872.87 ms
 Input tokens: 50
-Output tokens: 22
-Thought tokens: 486
-Total observed tokens: 558
+Output tokens: 40
+Thought tokens: 368
+Total observed tokens: 458
 
 Response:
-To process your request, we still need your full name, contact information, and your preferred dates and times.
-Estimated cost: $0.00194250
+To schedule the appointment, we still need the patient's full contact details and the reason for their visit. We also require their preferred specific days, times, and any provider preferences for next week.
+Estimated cost: $0.00156750
 ```
 
 ### Run 3 Response
@@ -85,15 +85,15 @@ Estimated cost: $0.00194250
 ```text
 Provider: gemini
 Model: gemini-3.6-flash
-Latency: 9124.53 ms
+Latency: 17219.33 ms
 Input tokens: 50
-Output tokens: 20
-Thought tokens: 488
-Total observed tokens: 558
+Output tokens: 45
+Thought tokens: 341
+Total observed tokens: 436
 
 Response:
-To process the request, we still need the patient's full name, contact details, and the
-Estimated cost: $0.00194250
+To schedule the appointment, we still need the patient's contact details and the general reason for their visit to select the appropriate provider. Additionally, we require their specific preferred dates and times during the week to check schedule availability.
+Estimated cost: $0.00148500
 ```
 
 ---
@@ -118,17 +118,17 @@ Estimated cost: $0.00194250
 
 ### Were the responses textually identical?
 
-No
+Somewhat
 
 ### Were they semantically equivalent?
 
-Not Sure
+No
 
 ### What varied between the runs?
 
 Consider response wording, latency, and token usage.
 
-- The output wording were different, some were still cut out due to the set limit. Latency also differ from each run.
+- The output wording were different. Latency also differ from each run.
 
 ---
 

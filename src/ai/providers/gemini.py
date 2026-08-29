@@ -23,6 +23,7 @@ class GeminiProvider:
         config = types.GenerateContentConfig(
             system_instruction=request.system_instruction,
             max_output_tokens=request.max_output_tokens,
+            thinking_config=types.ThinkingConfig(thinking_level="low")
         )
 
         started_at = time.perf_counter()

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import os
+from urllib import response
 
 from dotenv import load_dotenv
 
@@ -26,7 +27,7 @@ def create_request() -> AIRequest:
     )
 
 
-def run(provider: AIProvider) -> None:
+def run(provider: AIProvider, pricing: ModelPricing | None = None) -> None:
     response = provider.generate(create_request())
 
     print(f"Provider: {response.provider}")
@@ -39,19 +40,11 @@ def run(provider: AIProvider) -> None:
     print()
     print("Response:")
     print(response.text)
-
-    pricing = ModelPricing(
-        provider=response.provider,
-        model=response.model,
-        input_usd_per_million_tokens=0.75,
-        output_usd_per_million_tokens=3.75,
-        effective_date=date(2026, 8, 29),
-        source_url="https://ai.google.dev/gemini-api/docs/pricing",
-    )
     
-    estimated_cost = estimate_cost_usd(response.usage, pricing)
-    print(f"Estimated cost: ${estimated_cost:.8f}")
-
+    if pricing is not None:
+        estimated_cost = estimate_cost_usd(response.usage, pricing)
+        print(f"Estimated cost: ${estimated_cost:.8f}")
+ 
 
 def main() -> None:
     load_dotenv()
@@ -69,8 +62,17 @@ def main() -> None:
         api_key=api_key,
         model=model,
     )
+    
+    pricing = ModelPricing(
+        provider="gemini",
+        model=model,
+        input_usd_per_million_tokens=0.75,
+        output_usd_per_million_tokens=3.75,
+        effective_date=date(2026, 8, 29),
+        source_url="https://ai.google.dev/gemini-api/docs/pricing",
+    )
 
-    run(provider)
+    run(provider, pricing)
 
 
 if __name__ == "__main__":
