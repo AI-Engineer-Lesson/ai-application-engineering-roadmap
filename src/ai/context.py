@@ -10,7 +10,7 @@ class ClinicPolicy:
     appointment_required:bool
     required_booking_fields: tuple[str,...]
     supported_request_types: tuple[str,...]
-    
+
 def serialize_context(data: object) -> str:
     return json.dumps(
         data,
@@ -18,7 +18,7 @@ def serialize_context(data: object) -> str:
         indent=2,
         sort_keys=True
     )
-    
+
 def build_clinic_request(
     *,
     policy: ClinicPolicy,
@@ -28,7 +28,7 @@ def build_clinic_request(
 ) -> AIRequest:
     system_instruction = """
         You are a scheduling-support assistant for a fictional clinic.
-        
+
         Follow these rules:
             1. Assist only with clinic scheduling and general clinic-policy questions.
             2. Do not diagnose conditions or recommend treatments.
@@ -46,16 +46,16 @@ def build_clinic_request(
         ACTION: ANSWER, CLARIFY, or REFUSE
         MESSAGE: A concise response to the user
         """.strip()
-    
+
     trusted_context = {
         "current_date": current_date,
         "clinic_policy": asdict(policy),
     }
-    
+
     untrusted_user_data = {
         "user_input": user_input
     }
-    
+
     sections = [
         "Complete the scheduling-support task using the supplied context.",
         "",
@@ -68,12 +68,12 @@ def build_clinic_request(
         ),
         serialize_context(untrusted_user_data),
     ]
-    
+
     if reference_text is not None:
         untrusted_reference_data = {
             "reference_text": reference_text
         }
-        
+
         sections.extend(
             [
                 "",
@@ -84,7 +84,7 @@ def build_clinic_request(
                 serialize_context(untrusted_reference_data),
             ]
         )
-        
+
     return AIRequest(
         system_instruction=system_instruction,
         prompt="\n".join(sections),

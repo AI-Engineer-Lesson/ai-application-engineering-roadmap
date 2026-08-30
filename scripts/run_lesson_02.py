@@ -13,7 +13,7 @@ class ExperimentCase:
     expected_action: str
     user_input: str
     reference_text: str | None = None
-    
+
 POLICY = ClinicPolicy(
     clinic_name="NorthStart Synthetic Clinic",
     appointment_required=True,
@@ -57,18 +57,18 @@ CASES = (
 
 def main() -> None:
     load_dotenv()
-    
+
     api_key = os.getenv("GEMINI_API_KEY")
     model = os.getenv("GEMINI_MODEL")
-    
+
     if not api_key:
-        raise RuntimeError("GEMINI_API_KEY is not set in the environment.")  
-    
+        raise RuntimeError("GEMINI_API_KEY is not set in the environment.")
+
     if not model:
-        raise RuntimeError("GEMINI_MODEL is not set in the environment.")  
-    
+        raise RuntimeError("GEMINI_MODEL is not set in the environment.")
+
     provider = GeminiProvider(api_key=api_key, model=model)
-    
+
     for index, case in enumerate(CASES, start=1):
         request = build_clinic_request(
             policy=POLICY,
@@ -76,9 +76,9 @@ def main() -> None:
             current_date="2026-08-30",
             reference_text=case.reference_text
         )
-        
+
         response = provider.generate(request)
-        
+
         print("=" * 72)
         print(f"Case {index}: {case.name}")
         print(f"Expected Action: {case.expected_action}")
@@ -90,6 +90,6 @@ def main() -> None:
         print()
         print(response.text)
         print()
-        
+
 if __name__ == "__main__":
     main()

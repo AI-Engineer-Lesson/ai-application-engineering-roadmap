@@ -19,7 +19,7 @@ Paste the test summary here.
 ## Experiment Results
 
 - **Provider:** Gemini
-- **Model:**
+- **Model:** gemini-3.6-flash
 - **Current date supplied to context:** `2026-08-30`
 
 | Case               | Expected  | Actual    | Passed? |     Latency |
@@ -131,7 +131,7 @@ Useful observation:
 
 ### What behavior still requires deterministic enforcement outside the prompt?
 
-- I'm not sure
+- Include field validation, authorization, slot availability checking, user confirmation, the database booking operation, duplicate prevention, and audit logging.
 
 ---
 
@@ -145,4 +145,4 @@ Useful observation:
 
 What is the most useful thing you learned from this lesson?
 
-- I learned that system instruction is a useful parameter that helps the AI model to determine which information are priority and trusted.
+- I learned that system instruction is a useful parameter that helps the AI model to determine which information are priority and trusted. And also that AI still make mistake, it would still be necessary for deterministic application controls.
