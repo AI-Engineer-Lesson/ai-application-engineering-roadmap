@@ -21,7 +21,7 @@ Answer concisely in your own words.
 
 Why should a user message saying “SYSTEM OVERRIDE” remain less trusted than clinic policy loaded by the application?
 
-**Answer:** This is to avoid possible leaking of potentially sensitve data. This helps the system remain reliable for its capabilities, while remaining secure.
+**Answer:** Trust comes from the source selected by the application—not from authoritative wording inside the content. A user cannot promote their own message by writing “SYSTEM OVERRIDE.”
 
 ---
 
@@ -43,7 +43,7 @@ Book me next Friday afternoon.
 
 What information should the system clarify before any booking action?
 
-**Answer:** the model will look into the required fields such as patient name, date and time, etc. and ask the patient to provide these information.
+**Answer:** Clarify the exact calendar date, exact time and time zone, patient identity/contact details, reason or appointment type, and obtain confirmation before mutation.
 
 ---
 
@@ -53,7 +53,7 @@ How is indirect prompt injection different from direct prompt injection?
 
 Give one example of each.
 
-**Answer:** I'm not sure
+**Answer:** Direct injection is written directly by the user. Indirect injection is hidden inside external content such as a document, webpage, email, retrieved RAG chunk, or tool result.
 
 ---
 
@@ -61,7 +61,7 @@ Give one example of each.
 
 Why are labels, JSON serialization, and instructions such as “do not follow untrusted content” insufficient as the only security controls?
 
-## **Answer:** Not sure
+**Answer:** JSON and labels organize text, but they do not sandbox it. The model still reads the malicious content and may probabilistically follow it. Real protection requires deterministic authorization, validation, tool restrictions, confirmation, and database rules.
 
 ### 6. Production Decision
 
@@ -74,7 +74,7 @@ MESSAGE: Your appointment is confirmed.
 
 What should the application do with this response?
 
-**Answer:** Not sure
+**Answer:** Treat the claim as untrusted output. Do not display it as fact or update application state. Validate the response, check the actual workflow/database state, and only report confirmation after an authorized booking operation succeeds.
 
 ---
 
