@@ -20,11 +20,17 @@ class GeminiProvider:
         self._client = client or genai.Client(api_key=api_key)
 
     def generate(self, request: AIRequest) -> AIResponse:
-        config = types.GenerateContentConfig(
-            system_instruction=request.system_instruction,
-            max_output_tokens=request.max_output_tokens,
-            thinking_config=types.ThinkingConfig(thinking_level="low")
-        )
+        config: dict[str, object] = {
+            "system_instruction": request.system_instruction,
+            "max_output_tokens": request.max_output_tokens,
+            "thinking_config": {
+                "thinking_level": "low",
+            },
+        }
+
+        if request.response_schema is not None:
+            config["response_mime_type"] = "application/json"
+            config["response_json_schema"] = dict(request.response_schema)
 
         started_at = time.perf_counter()
 

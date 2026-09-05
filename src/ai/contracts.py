@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Protocol
+from typing import Mapping, Any, Protocol
 
 
 @dataclass(frozen=True)
@@ -7,6 +7,7 @@ class AIRequest:
     prompt: str
     system_instruction: str | None = None
     max_output_tokens: int = 300
+    response_schema: Mapping[str, Any] | None = None
 
 
 @dataclass(frozen=True)
