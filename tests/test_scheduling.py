@@ -6,7 +6,7 @@ from src.ai.contracts import AIRequest, AIResponse, TokenUsage
 from src.ai.scheduling import (
     extract_appointment_request,
     parse_appointment_extraction,
-    StructuredOutoutError)
+    StructuredOutputError)
 
 VALID_EXTRACTION = {
     "status": "ready_for_validation",
@@ -46,9 +46,9 @@ def test_valid_structure_output_is_accepted() -> None:
     assert result.contact_number == "09170000000"
 
 def test_malformed_json_is_rejected() -> None:
-    with pytest.raises(StructuredOutoutError):
+    with pytest.raises(StructuredOutputError):
         parse_appointment_extraction(
-            '{"status": "ready_for_validation"}'
+            '{"status": "ready_for_validation"'
         )
 
 def test_unknown_status_is_rejected() -> None:
@@ -57,7 +57,7 @@ def test_unknown_status_is_rejected() -> None:
         "status": "appointment_confirmed"
     }
 
-    with pytest.raises(StructuredOutoutError):
+    with pytest.raises(StructuredOutputError):
         parse_appointment_extraction(json.dumps(invalid))
 
 
@@ -67,7 +67,7 @@ def test_invalid_phone_number_is_rejected() -> None:
         "contact_number": "0917000000"
     }
 
-    with pytest.raises(StructuredOutoutError):
+    with pytest.raises(StructuredOutputError):
         parse_appointment_extraction(json.dumps(invalid))
 
 def test_ready_status_requires_all_fields() -> None:
@@ -77,7 +77,7 @@ def test_ready_status_requires_all_fields() -> None:
         "missing_fields": ["contact_number"]
     }
 
-    with pytest.raises(StructuredOutoutError):
+    with pytest.raises(StructuredOutputError):
         parse_appointment_extraction(json.dumps(invalid))
 
 def test_clarification_requires_missing_fields() -> None:
@@ -88,7 +88,7 @@ def test_clarification_requires_missing_fields() -> None:
         "missing_fields": []
     }
 
-    with pytest.raises(StructuredOutoutError):
+    with pytest.raises(StructuredOutputError):
         parse_appointment_extraction(json.dumps(invalid))
 
 def test_consumer_accepts_fake_provider() -> None:

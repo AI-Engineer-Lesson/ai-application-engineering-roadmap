@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from datetime import date, time
-from typing import Literal
+from typing import Literal, Self
 
 import re
 

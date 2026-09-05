@@ -39,3 +39,19 @@ Why should this response be rejected?
 ```
 
 **Answer:** the status contradicts with the missing fields. In this case, contact number is a required field. while the model may have returned it as ready_for_validation, the application should still reject it.
+
+### 4. Safe Failure
+
+What should the application do when structured output fails validation?
+
+**Answer:** Reject
+
+### 5. Booking Boundary
+
+Why must ready_for_validation never be treated as proof that an appointment was booked?
+
+**Answer:** Not sure
+
+### Clarification Needed
+
+I don't know. You answer.
