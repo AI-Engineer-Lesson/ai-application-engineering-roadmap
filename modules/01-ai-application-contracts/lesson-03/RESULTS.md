@@ -20,7 +20,7 @@ tests\test_scheduling.py .......                                                
 ## Configuration
 
 - **Provider:** Gemini
-- **Model:**
+- **Model:** gemini-3.6-flash
 - **Structured-output validation:** Pydantic
 
 ## Experiment Results
@@ -58,4 +58,4 @@ An issue with the gemini sdk which does not support response_format. I had help 
 
 What is the practical difference between structured generation and runtime validation?
 
-I'm not sure
+Structured generation helps the model return JSON in the expected shape. Runtime validation checks whether the returned values and relationships satisfy the application's rules. Correctly structured JSON can still contain invalid or contradictory data.

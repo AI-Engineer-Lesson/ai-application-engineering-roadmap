@@ -42,16 +42,12 @@ Why should this response be rejected?
 
 ### 4. Safe Failure
 
-What should the application do when structured output fails validation?
-
-**Answer:** Reject
+**Answer:** The application should reject the invalid response and perform no booking action. It may safely log the validation error and either request clarification or retry using controlled rules.
 
 ### 5. Booking Boundary
 
-Why must ready_for_validation never be treated as proof that an appointment was booked?
+**Answer:** `ready_for_validation` only means the model extracted the required information. The application must still validate the information, check availability, obtain confirmation, create the database record, and verify that the operation succeeded.
 
-**Answer:** Not sure
+## Clarification Needed
 
-### Clarification Needed
-
-I don't know. You answer.
+None
