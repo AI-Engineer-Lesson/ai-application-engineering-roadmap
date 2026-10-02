@@ -3,7 +3,13 @@
 ## Test Evidence
 
 ```text
-Paste the final pytest summary here.
+tests\test_ai_consumer.py .                                                                                           [  4%]
+tests\test_context.py ....                                                                                            [ 23%]
+tests\test_decisions.py ........                                                                                      [ 61%]
+tests\test_pricing.py .                                                                                               [ 66%]
+tests\test_scheduling.py .......                                                                                      [100%]
+
+==================================================== 21 passed in 0.98s ====================================================
 ```
 
 ## Decision Matrix
@@ -21,16 +27,16 @@ Paste the final pytest summary here.
 
 1. Which inputs passed schema validation but were stopped later?
 
-   **Answer:** Not sure
+   **Answer:** The blank patient name passed schema validation but failed semantic validation. The Sunday request contained valid values but was rejected by the clinic's business rules.
 
 2. Did any rejected input allow slot lookup or perform a booking?
 
-   **Answer:** No
+   **Answer:** No. Every rejected input returned `may_lookup_slots = False`, and no booking operation was performed.
 
 3. What is the key distinction between model extraction and application decisions?
 
-   **Answer:** Not Sure
+   **Answer:** The model extracts structured information from the request. Deterministic application code decides whether that information is valid and whether the request may proceed.
 
 ## Issues or Deviations
 
-I'd like to be helped to understand on what's going on here
+- None

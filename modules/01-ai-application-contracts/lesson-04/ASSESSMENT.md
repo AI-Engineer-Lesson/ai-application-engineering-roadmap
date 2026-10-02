@@ -31,9 +31,9 @@ Classify each case as schema/runtime, semantic, or business-rule failure:
 
 **Answer:**
 
-- schema/runtime
-- business-rule failure
-- business-rul failure
+- Invalid date text: schema/runtime failure
+- Correctly formatted date in the past: semantic failure
+- Valid future date when the clinic is closed: business-rule failure
 
 ### 3. Action boundary
 
@@ -43,4 +43,4 @@ What does `ready_for_slot_lookup` permit, and what does it still not permit?
 
 ## Clarification Needed
 
-Write `None`, or name one specific concept that still needs explanation.
+None
